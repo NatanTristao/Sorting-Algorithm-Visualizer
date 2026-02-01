@@ -40,7 +40,7 @@ def draw(draw_info):
 	draw_list(draw_info)
 	pygame.display.update()
 
-def draw_list(draw_info):
+def draw_list(draw_info): #calculate de rect
 	lst = draw_info.lst
 
 	for i, val in enumerate(lst):
