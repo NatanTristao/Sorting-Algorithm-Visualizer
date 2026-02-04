@@ -38,14 +38,17 @@ class DrawInformation:
 		self.block_height = math.floor((self.height - self.TOP_PAD) / (self.max_val - self.min_val))
 		self.start_x = self.SIDE_PAD // 2
 
-def draw(draw_info):
+def draw(draw_info, algo_name, ascending):
 	draw_info.window.fill(draw_info.BACKGROUND_COLOR)
 
+	title = draw_info.LARGE_FONT.render(f"{algo_name} - {'Ascending' if ascending else 'Descending'}", 1, draw_info.GREEN)
+	draw_info.window.blit(title, (draw_info.width/2 - title.get_width()/2, 5)) # draw the letters
+
 	controls = draw_info.FONT.render("R - Reset | SPACE - Start Sorting | A - Ascending | D - Descending", 1, draw_info.BLACK)
-	draw_info.window.blit(controls, (draw_info.width/2 - controls.get_width()/2, 5)) # draw the letters
+	draw_info.window.blit(controls, (draw_info.width/2 - controls.get_width()/2, 45)) # draw the letters
 	
 	sorting = draw_info.FONT.render("I - insertion Sort | B - Bubble Sort", 1, draw_info.BLACK)
-	draw_info.window.blit(sorting, (draw_info.width/2 - sorting.get_width()/2, 35)) # draw the letters
+	draw_info.window.blit(sorting, (draw_info.width/2 - sorting.get_width()/2, 75)) # draw the letters
 	
 
 	draw_list(draw_info)
@@ -97,6 +100,10 @@ def bubble_sort(draw_info, ascending=True): #our bubble sort is a generator
 				yield True
 	return lst
 
+def insertion_sort(draw_info, ascending=True):
+	lst = draw_info.lst
+
+
 def main():
 	run = True
 	clock = pygame.time.Clock()
@@ -123,7 +130,7 @@ def main():
 			except StopIteration:
 				sorting = False
 		else:
-			draw(draw_info)
+			draw(draw_info, sorting_algo_name, ascending)
 
 		pygame.display.update()
 
